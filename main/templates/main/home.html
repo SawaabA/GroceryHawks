@@ -1,0 +1,367 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>GroceryHawk | Home</title>
+  <meta name="description" content="Discover local grocery deals and coupons with GroceryHawk. Save money while shopping smartly in your area.">
+  <meta name="keywords" content="Grocery, Deals, Coupons, Shopping, Local Savings">
+
+  <link rel="icon" href="{% static 'main/assets/img/hawk.png' %}" type="image/png">
+  <link href="{% static 'main/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'main/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'main/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'main/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'main/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'main/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'main/assets/css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+
+  <!-- ========== HEADER ========== -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+        <!-- If you have a logo image, uncomment the line below -->
+        <!-- <img src="{% static 'main/assets/img/logo.png' %}" alt="GroceryHawk Logo"> -->
+        <h1 class="sitename">GroceryHawk</h1>
+        <span>.</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home<br></a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="/login">Log In & Register</a>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main class="main">
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="hero section light-background">
+
+      <div class="container">
+        <div class="row gy-4 justify-content-center justify-content-lg-between">
+          <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1 data-aos="fade-up">Save More, Stress Less with GroceryHawk</h1>
+            <p data-aos="fade-up" data-aos-delay="100">
+              Discover the best local deals and coupons to save money on your everyday shopping.
+            </p>
+            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+              <a href="/login" class="btn-get-started">Log In &amp; Register</a>
+              <a href="https://www.youtube.com/watch?v=lKUH81NkzGo" class="glightbox btn-watch-video d-flex align-items-center">
+                <i class="bi bi-play-circle"></i>
+                <span>Why are we doing this?</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+            <img src="{% static 'main/assets/img/new-hero-image.png' %}" class="img-fluid animated" alt="GroceryHawk Deals">
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- End Hero Section -->
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About Us</h2>
+        <p><span>Learn More</span> <span class="description-title">About GroceryHawk</span></p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+            <img src="{% static 'main/assets/img/happy-family.jpg' %}" class="img-fluid mb-4" alt="About GroceryHawk"   style="max-width: 746px; height: auto;">
+            <a href="#contact">
+              <div class="book-a-table">
+                <h3>Contact Us</h3>
+                <p>+1 519 331 1324</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
+            <div class="content ps-0 ps-lg-5">
+              <p class="fst-italic">
+                At GroceryHawk, we empower consumers by exposing hidden tactics used by big chains and providing a user-friendly price comparison tool—helping you shop smarter and save more.
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Personalized deals based on your location.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Verified coupons from trusted retailers.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Save time and shop with confidence.</span></li>
+              </ul>
+              <p>
+                Whether you’re stocking up on groceries or searching for that special discount, GroceryHawk makes it easy to find the best offers in your area.
+              </p>
+
+              <div class="position-relative mt-4">
+                <img src="{% static 'main/assets/img/rising-food-prices2.jpg' %}" class="img-fluid" alt="GroceryHawk in Action">
+                <a href="https://www.youtube.com/watch?v=lKUH81NkzGo" class="glightbox pulsating-play-btn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ========== WHY US SECTION ========== -->
+    <section id="why-us" class="why-us section light-background">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-box">
+              <h3>Why Choose GroceryHawk</h3>
+              <p>
+                GroceryHawk is your go-to solution for finding local deals and coupons. We streamline your shopping experience by offering:
+              </p>
+              <ul>
+                <li>Smart, location-based deal recommendations.</li>
+                <li>Access to exclusive coupons from trusted retailers.</li>
+                <li>Easy navigation and a user-friendly interface.</li>
+              </ul>
+              <div class="text-center">
+                <a href="/login" class="more-btn mt-3">
+                  <span>Learn More</span> <i class="bi bi-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8 d-flex align-items-stretch">
+            <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="col-xl-4">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-geo-alt"></i>
+                  <h4>Local Deals</h4>
+                  <p>Find deals and coupons tailored to your neighborhood.</p>
+                </div>
+              </div>
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-tags"></i>
+                  <h4>Verified Coupons</h4>
+                  <p>Access offers that are verified and up-to-date.</p>
+                </div>
+              </div>
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-currency-dollar"></i>
+                  <h4>Save Money</h4>
+                  <p>Maximize your savings on everyday shopping.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Why Us Section -->
+
+    <!-- ========== STATS SECTION ========== -->
+    <section id="stats" class="stats section dark-background">
+      <img src="{% static 'main/assets/img/new-stats-bg.jpg' %}" alt="GroceryHawk Stats Background">
+
+      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Stores Listed</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="300" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Coupons Available</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="5000" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Deals Claimed</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Partnered Retailers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Stats Section -->
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p><span>Need Assistance?</span> <span class="description-title">Contact GroceryHawk</span></p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="mb-5">
+          <iframe style="width: 100%; height: 400px;" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.7627029097075!2d-80.52580392373837!3d43.465551064547284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882bf5c4198b511b%3A0xd5e9b3c3366e368a!2sDen%201880!5e0!3m2!1sen!2sca!4v1724449773800!5m2!1sen!2sca" 
+            frameborder="0" allowfullscreen="">
+          </iframe>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+              <i class="icon bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Address</h3>
+                <p>14 Erb St. W, Waterloo, ON N2L 1S7</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
+              <i class="icon bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+1 519 331 1324</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
+              <i class="icon bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email Us</h3>
+                <p>contact@groceryhawk.com</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
+              <i class="icon bi bi-clock flex-shrink-0"></i>
+              <div>
+                <h3>Contact Hours<br></h3>
+                <p><strong>Mon-Sat:</strong> 9AM - 7PM; <strong>Sunday:</strong> Closed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="contact-form" action="https://formspree.io/f/xqaawkor" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+              <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </section>
+    <!-- End Contact Section -->
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="footer" class="footer dark-background">
+    <div class="container text-center mt-4">
+      <p>© <strong class="px-1 sitename">GroceryHawk</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'main/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'main/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'main/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'main/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'main/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'main/assets/js/main.js' %}"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault(); // Prevent default form submission
+      
+      const form = e.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          showFormMessage('Your message has been sent successfully!', 'success');
+          form.reset();
+        } else {
+          showFormMessage('There was an error sending your message. Please try again.', 'error');
+        }
+      } catch (error) {
+        showFormMessage('Something went wrong. Please try again.', 'error');
+      }
+    });
+
+    function showFormMessage(message, type) {
+      let messageContainer = document.getElementById('form-message');
+
+      if (!messageContainer) {
+        messageContainer = document.createElement('div');
+        messageContainer.id = 'form-message';
+        messageContainer.style.marginTop = '10px';
+        messageContainer.style.fontWeight = 'bold';
+        document.getElementById('contact-form').appendChild(messageContainer);
+      }
+
+      messageContainer.style.color = (type === 'success') ? 'green' : 'red';
+      messageContainer.textContent = message;
+    }
+  </script>
+</body>
+</html>

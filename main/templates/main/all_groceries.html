@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All Groceries - GroceryHawk</title>
+    
+  <link rel="icon" href="{% static 'main/assets/img/hawk.png' %}" type="image/png">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Custom Styles -->
+  <style>
+    /* GENERAL STYLES */
+    body {
+      background-color: #f4f9f4;
+      font-family: 'Roboto', sans-serif;
+    }
+    .profile-icon {
+    font-size: 2.0rem; /* Increase this value as needed */
+    color: #00796B;     /* Sets the color to teal */
+
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #00796B !important;
+    }
+    .product-image {
+    width: 150px;     /* or any desired width */
+    height: 150px;    /* or any desired height */
+    object-fit: cover; /* This ensures the image is cropped nicely if its aspect ratio differs */
+    }
+    .sidebar {
+      background-color: #fff;
+      border-right: 1px solid #e0e0e0;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .sidebar .nav-link {
+      font-size: 1.1rem;
+      color: #00796B;
+      padding: 10px 15px;
+    }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background-color: #e0f2f1;
+      font-weight: 600;
+    }
+    /* FLIP CARD STYLING */
+    .flip-card {
+      background-color: transparent;
+      width: 100%;
+      height: 320px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+    .flip-card-back {
+      background-color: #00796B;
+      color: white;
+      transform: rotateY(180deg);
+      padding: 15px;
+    }
+    /* ENSURE PRODUCT TITLES HAVE UNIFORM SIZE & SPACING */
+    .card-title {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 40px; /* Consistent height for all titles */
+      margin-bottom: 10px;
+    }
+    /* STORE PRICES TABLE */
+    .store-prices {
+      width: 100%;
+      text-align: left;
+    }
+    .store-prices tr {
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    .store-prices th, .store-prices td {
+      padding: 5px 10px;
+    }
+    .store-prices th {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-3" href="#">GroceryHawk</a>
+    <div class="ms-auto">
+      <div class="dropdown">
+        <a class="profile-icon dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown">
+          <i class="bi bi-person-circle"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar and Content Layout -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <aside class="col-md-2 sidebar d-none d-md-block">
+      <nav class="nav flex-column">
+        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="nav-link" href="{% url 'grocery_search' %}">Grocery Search</a>
+        <a class="nav-link active" href="{% url 'all_groceries' %}">All Groceries</a>
+        <a class="nav-link" href="#">Top Deals</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="col-md-10 main-content">
+      <div class="container mt-4">
+        <h2 class="text-center">All Groceries</h2>
+
+<!-- Search & Filter -->
+<form method="get" class="mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" name="q" class="form-control" placeholder="Search for a product..." value="{{ search_query }}">
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
+  
+  <!-- Grocery Items Grid -->
+  <div class="row" id="groceryContainer">
+    {% for grocery in page_obj %}
+      <!-- Flip card structure for each grocery item -->
+      <div class="col-md-3 grocery-item">
+        <div class="flip-card" onclick="this.classList.toggle('flipped');">
+          <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+                <img src="{{ grocery.Image }}"class="card-img-top product-image"alt="{{ grocery.title }}" onerror="this.src='https://via.placeholder.com/150';">
+                <h6 class="card-title">{{ grocery.title }}</h6>
+              <p class="product-price text-success">${{ grocery.lowest_price|floatformat:2 }}</p>
+            </div>
+            <!-- Back Side -->
+            <div class="flip-card-back">
+              <h6>Available at:</h6>
+              <table class="store-prices">
+                {% for store, price in grocery.all_stores.items %}
+                <tr>
+                  <td>{{ store }}</td>
+                  <td>${{ price|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+
+        <!-- Pagination Controls -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center mt-4">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">&laquo;</span>
+              </li>
+            {% endif %}
+
+            <li class="page-item active">
+              <span class="page-link">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              </span>
+            </li>
+
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">&raquo;</span>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- Bootstrap 5 Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

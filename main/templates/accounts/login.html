@@ -1,0 +1,32 @@
+{%extends 'accounts/base.html'%}
+{%load static%}
+{%block content%}
+<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="login_submit" value="1">
+        {% if login_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in login_form %}
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
+            {% for error in login_form.non_field_errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="mb-4">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control"
+                value="{{ login_form.username.value|default:'' }}" required>
+        </div>
+        <div class="mb-4">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" name="password" id="loginPassword" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-custom w-100 mb-3">Log In</button>
+    </form>
+</div>
+{%endblock%}

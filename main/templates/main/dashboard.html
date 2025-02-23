@@ -1,0 +1,549 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GroceryHawk Dashboard</title>
+  <link rel="icon" href="{% static 'main/assets/img/hawk.png' %}" type="image/png">
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="{% static 'main/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+
+  <!-- Custom CSS -->
+  <style>
+        /* Remove default Bootstrap caret */
+    .profile-icon::after {
+      display: none !important;
+    }
+
+    /* Ensure no underline or extra space */
+    .profile-icon {
+      text-decoration: none !important;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Make sure the dropdown isn't shifting things */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+    }
+        /* Increase Profile Icon Size */
+    .profile-icon i {
+      color: #00796B;
+      font-size: 2.0rem; /* Bigger icon */
+      margin-left: 15px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    /* Hover Effect for Profile Icon */
+    .profile-icon:hover {
+      color: #004d40; /* Darker green */
+      transform: scale(1.1);
+      transition: all 0.2s ease-in-out;
+    }
+
+    /* Style Dropdown */
+    .dropdown-menu {
+      min-width: 150px;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Style Dropdown Items */
+    .dropdown-item {
+      font-size: 1rem;
+      padding: 3px 5px;
+    }
+
+    /* Log Out Button in Red */
+    .dropdown-item.text-danger {
+      font-weight: 400;
+      color: #014c3f; /* Darker green */
+
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f9f4; /* Subtle background */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Top Navigation Bar */
+    .navbar-custom {
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #00796B !important;
+    }
+    .search-input {
+      max-width: 300px;
+    }
+    .nav-icons a {
+      color: #00796B;
+      margin-left: 15px;
+      font-size: 1.4rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: #fff;
+      border-right: 1px solid #e0e0e0;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .sidebar .nav-link {
+      font-size: 1.1rem;
+      color: #00796B;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+    .sidebar .nav-link:hover, 
+    .sidebar .nav-link.active {
+      background-color: #e0f2f1;
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem;
+    }
+    .section-title {
+      color: #00796B;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    /* Dashboard Wrapper */
+    .dashboard-wrapper {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    /* Categories Section */
+    .categories {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto; /* horizontal scroll if content is wide */
+      padding-bottom: 1rem;
+    }
+    .category-item {
+      flex: 0 0 auto;
+      width: 100px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .category-item img {
+      width: 50px;
+      margin-bottom: 0.5rem;
+    }
+    .category-item div {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+        /* Product Card Styling */
+    .product-card {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      height: 260px;  /* Ensures all cards are the same height */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    /* Hover Effect */
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Product Image */
+    .product-image {
+      max-height: 120px; /* Reduced height for better fit */
+      object-fit: contain;
+      padding: 8px;
+      width: auto;
+      margin: 0 auto; /* Centers the image */
+    }
+
+    /* Card Body Padding */
+    .card-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Product Title */
+    .card-title {
+      font-size: 13px; /* Adjusted for better fit */
+      font-weight: bold;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Product Price */
+    .product-price {
+      font-size: 12px;
+      color: #00796B;
+      margin: 5px 0;
+    }
+
+    /* Store Information */
+    .product-store {
+      font-size: 11px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    /* Button Styling */
+    .btn-sm {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: #00796B;
+      border: none;
+    }
+
+    .btn-sm:hover {
+      background-color: #005a4e;
+    }
+    /* Discount Banners */
+    .discount-banner {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      color: #fff;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .discount-banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,121,107,0.6);
+    }
+    .discount-banner > * {
+      position: relative;
+      z-index: 2;
+    }
+    .discount-banner h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Last Order */
+    .last-orders .list-group-item {
+      border: none;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0.75rem 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        padding: 1rem;
+      }
+
+    /* General Discount Banner Styles */
+    .discount-banner {
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      color: #fff;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Dark overlay for better text contrast */
+    .discount-banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 121, 107, 0.6); /* Dark transparent overlay */
+      transition: background 0.3s ease-in-out;
+    }
+
+    /* Make sure text is above the overlay */
+    .discount-banner h3,
+    .discount-banner a {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Hover Effects */
+    .discount-banner:hover {
+      transform: scale(1.05); /* Slight zoom effect */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    }
+
+    .discount-banner:hover::after {
+      background: rgba(0, 121, 107, 0.3); /* Lighten overlay on hover */
+    }
+
+    /* Button Hover Effect */
+    .discount-banner a.btn:hover {
+      background-color: #004d40 !important; /* Darker green */
+      border-color: #004d40 !important;
+    }
+      /* Specific styles for the sidebar logout button */
+    .sidebar .nav-link.text-danger {
+    font-size: 0.9rem; /* Smaller text */
+    font-weight: 600;
+    }
+
+    .sidebar .nav-link.text-danger:hover {
+    background-color: transparent !important; /* Remove the default highlight */
+    color: rgb(6, 94, 92) !important; /* Change the text color on hover */
+    }
+
+    }
+  </style>
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand ms-3" href="#">GroceryHawk</a>
+
+    <!-- Toggler (for small screens) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav"
+            aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Section -->
+    <div class="collapse navbar-collapse" id="topNav">
+      
+    <!-- Profile Dropdown in Navbar -->
+    <div class="nav-icons d-flex align-items-center ms-auto me-5">
+      <div class="dropdown">
+        <!-- Profile Icon (Click to Open Dropdown) -->
+        <a class="profile-icon dropdown-toggle" href="#" role="button" id="profileDropdown" 
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle"></i>
+        </a>
+
+        <!-- Dropdown Menu (Only Log Out) -->
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+
+    </div> <!-- Closing navbar-collapse -->
+  </div>
+</nav>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar Navigation -->
+      <aside class="col-md-2 sidebar d-none d-md-block">
+        <nav class="nav flex-column">
+          <a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link" href="{% url 'grocery_search' %}">Grocery Search</a>
+          <a class="nav-link" href="{% url 'all_groceries' %}">All Groceries</a>  <!-- ✅ FIXED -->
+          <a class="nav-link" href="{% url 'top_deals' %}">Top Deals</a>
+          <a class="nav-link text-danger" href="{% url 'logout' %}">Log Out</a>
+        </nav>
+      </aside>
+      
+
+    <!-- Main Content -->
+    <main class="col-md-10 main-content">
+        <div class="dashboard-wrapper">
+        <!-- Categories Section -->
+        <section>
+          <h3 class="section-title">Categories</h3>
+          <div class="row categories">
+            <!-- Fruit -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Fruit">
+                <img src="{% static 'main/assets/img/ICONS/apple.png' %}" alt="Fruit" style="width: 75px; height: 75px;">
+                <div>Fruit</div>
+              </a>
+            </div>
+            <!-- Vegetable -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Vegetable">
+                <img src="{% static 'main/assets/img/ICONS/veg.png' %}" alt="Vegetable" style="width: 75px; height: 75px;">
+                <div>Vegetable</div>
+              </a>
+            </div>
+            <!-- Fish -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Fish">
+                <img src="{% static 'main/assets/img/ICONS/fish.png' %}" alt="Fish" style="width: 75px; height: 75px;">
+                <div>Fish</div>
+              </a>
+            </div>
+            <!-- Meat -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Meat">
+                <img src="{% static 'main/assets/img/ICONS/shicken.png' %}" alt="Meat" style="width: 75px; height: 75px;">
+                <div>Meat</div>
+              </a>
+            </div>
+            <!-- Dairy -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Dairy">
+                <img src="{% static 'main/assets/img/ICONS/milk.png' %}" alt="Dairy" style="width: 75px; height: 75px;">
+                <div>Dairy</div>
+              </a>
+            </div>
+            <!-- Snacks -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Snacks">
+                <img src="{% static 'main/assets/img/ICONS/snack_chips.png' %}" alt="Snacks" style="width: 75px; height: 75px;">
+                <div>Snacks</div>
+              </a>
+            </div>
+            <!-- Cheese -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Cheese">
+                <img src="{% static 'main/assets/img/ICONS/cheese.png' %}" alt="Cheese" style="width: 75px; height: 75px;">
+                <div>Cheese</div>
+              </a>
+            </div>
+            <!-- Bakery -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Bakery">
+                <img src="{% static 'main/assets/img/ICONS/bakery.png' %}" alt="Bakery" style="width: 75px; height: 75px;">
+                <div>Bakery</div>
+              </a>
+            </div>
+            <!-- Desserts -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Desserts">
+                <img src="{% static 'main/assets/img/ICONS/desert.png' %}" alt="Desserts" style="width: 75px; height: 75px;">
+                <div>Desserts</div>
+              </a>
+            </div>
+            <!-- Wine -->
+            <div class="col-auto category-item">
+              <a href="{% url 'all_groceries' %}?q=Wine">
+                <img src="{% static 'main/assets/img/ICONS/wine.png' %}" alt="Wine" style="width: 75px; height: 75px;">
+                <div>Wine</div>
+              </a>
+            </div>
+          </div>
+        </section>
+        
+          <!-- Popular Products Section -->
+<section class="mt-4">
+  <h3 class="section-title">Popular Products</h3>
+<div class="row g-3">
+  {% for product in products %}
+  <div class="col-md-3">
+    <div class="card product-card">
+      <!-- Product Image -->
+      <img src="{{ product.Image }}" class="card-img-top product-image" alt="{{ product.title }}" 
+           onerror="this.src='https://via.placeholder.com/150';">
+      
+      <div class="card-body text-center">
+        <!-- Product Title -->
+        <h6 class="card-title font-weight-bold">{{ product.title }}</h6>
+
+        <!-- Product Price -->
+        <p class="product-price"><strong>Price:</strong> ${{ product.lowest_price }} / {{ product.uom }}</p>
+
+        <!-- Cheapest Stores -->
+        <p class="product-store"><strong>Sold at:</strong> 
+          {% for store in product.cheapest_stores %}
+            {{ store }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+
+        <!-- View Button -->
+        <a href="{% url 'grocery_search' %}?query={{ product.title }}" class="btn btn-success btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</section>
+
+          <!-- Discount Shop Section -->
+          <section class="mt-4">
+            <h3 class="section-title">Discount Shop</h3>
+            <div class="row g-3">
+              
+              <div class="col-md-4">
+                <div class="discount-banner" style="background-image: url('{% static "main/assets/img/Stores/freshco.jpg" %}');">
+                  <h3>15% Discount</h3>
+                  <a href="{% static 'main/assets/pdfs/freshco flyer.pdf' %}" target="_blank" class="btn btn-success btn-sm">Shop Now</a>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="discount-banner" style="background-image: url('{% static "main/assets/img/Stores/wallamrt.jpg" %}');">
+                  <h3>10% Discount</h3>
+                  <a href="{% static 'main/assets/pdfs/wallmart.pdf' %}" target="_blank" class="btn btn-success btn-sm">Shop Now</a>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="discount-banner" style="background-image: url('{% static "main/assets/img/Stores/zehers.jpg" %}');">
+                  <h3>12% Discount</h3>
+                  <a href="{% static 'main/assets/pdfs/zehers.pdf' %}" target="_blank" class="btn btn-success btn-sm">Shop Now</a>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+
+
+
+          <!-- Last Order Section -->
+          <section class="mt-4">
+            <h3 class="section-title">Last Order</h3>
+            <ul class="list-group last-orders">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Red Saffron
+                <span>$150</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Big Fish
+                <span>$120</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Bootstrap 5 Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
