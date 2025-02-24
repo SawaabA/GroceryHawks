@@ -26,8 +26,7 @@ Finally, we integrated **HawkBot** to boost accessibility and help with research
 Below are two images illustrating our project. Feel free to replace the image paths and captions with your own:
 
 ![Gorecyhawk Interface](Display_Image_1)  
-*Caption or brief description of the first image.*
-
+Dashboard
 
 ---
 
